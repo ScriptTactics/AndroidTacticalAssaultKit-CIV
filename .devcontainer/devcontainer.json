@@ -1,0 +1,28 @@
+{
+    "name": "ATAK Development Container",
+    "image": "openjdk:11",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "java.jdt.ls.java.home": "/usr/local/openjdk-11",
+                "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+                "java.format.settings.profile": "GoogleStyle"
+            },
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "redhat.java"
+            ]
+        }
+    },
+    "runArgs": [
+        "-v",
+        "/path/to/android/sdk:/opt/android-sdk"
+    ],
+    "postCreateCommand": "yes | sdkmanager --licenses && sdkmanager 'platform-tools' 'platforms;android-<ANDROID_SDK_VERSION>' && sdkmanager 'ndk;21.4.7075529'",
+    "remoteUser": "vscode",
+    "containerEnv": {
+        "ANDROID_SDK_ROOT": "/opt/android-sdk"
+    }
+}
